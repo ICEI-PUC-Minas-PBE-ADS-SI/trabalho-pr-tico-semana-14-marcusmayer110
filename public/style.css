@@ -1,0 +1,45 @@
+body {
+    background: radial-gradient(circle, blue, rgb(32, 17, 75));
+    
+  }
+  
+  h1, h2, h3, h5 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s;
+  }
+  
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .carousel img {
+    height: 500px;
+    object-fit: cover;
+  }
+  
+  footer {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    margin: 0px, 25%;
+    border-top: 2px solid #dee2e6;
+    padding: 1rem 0;
+  }
+
+.fotoperfil{
+    max-width: 250px;
+    max-height: 250px;
+    border: solid black;
+    border-radius: 25px;
+}
+
+.logo{
+    max-width: 100px;
+    max-height: 100px;
+}

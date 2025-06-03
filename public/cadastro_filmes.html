@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro de Filme</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4 text-center text-light" id="tituloPagina">Cadastrar Novo Filme</h1>
+    <form id="formCadastro" class="card p-4 shadow-sm rounded-4 bg-light">
+      <div class="mb-3">
+        <label for="titulo" class="form-label">Título</label>
+        <input type="text" class="form-control" id="titulo" name="titulo" required />
+      </div>
+      <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição</label>
+        <textarea class="form-control" id="descricao" name="descricao" rows="3" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="imagem" class="form-label">URL da Imagem</label>
+        <input type="text" class="form-control" id="imagem" name="imagem" required />
+        <div class="mb-3 text-center">
+          <img id="previewImagem" src="" alt="Prévia da Imagem" class="img-fluid rounded shadow-sm d-none"
+            style="max-height: 200px;" />
+        </div>
+
+      </div>
+      <div class="mb-3">
+        <label for="genero" class="form-label">Gênero</label>
+        <input type="text" class="form-control" id="genero" name="genero" required />
+      </div>
+      <div class="mb-3">
+        <label for="ano" class="form-label">Ano de Lançamento</label>
+        <input type="number" class="form-control" id="ano" name="ano" required />
+      </div>
+      <button type="submit" class="btn btn-primary w-100" id="botaoSubmit">Cadastrar Filme</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('formCadastro');
+    const tituloPagina = document.getElementById('tituloPagina');
+    const botaoSubmit = document.getElementById('botaoSubmit');
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    // Se for edição, buscar os dados do filme e preencher o formulário
+    if (id) {
+      tituloPagina.innerText = "Editar Filme";
+      botaoSubmit.innerText = "Salvar Alterações";
+
+      fetch(`http://localhost:3000/filmes/${id}`)
+        .then(res => res.json())
+        .then(filme => {
+          form.titulo.value = filme.titulo;
+          form.descricao.value = filme.descricao;
+          form.imagem.value = filme.imagemPrincipal;
+          form.genero.value = filme.genero;
+          form.ano.value = filme.ano;
+        })
+        .catch(() => alert("Erro ao carregar dados do filme para edição."));
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const dadosFilme = {
+        titulo: form.titulo.value,
+        descricao: form.descricao.value,
+        imagemPrincipal: form.imagem.value,
+        genero: form.genero.value,
+        ano: Number(form.ano.value),
+        diretor: "Desconhecido",
+        destaque: false,
+        fotosExtras: []
+      };
+
+      const url = id
+        ? `http://localhost:3000/filmes/${id}`
+        : `http://localhost:3000/filmes`;
+
+      const metodo = id ? "PUT" : "POST";
+
+      const resposta = await fetch(url, {
+        method: metodo,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dadosFilme)
+      });
+
+      if (resposta.ok) {
+        alert(id ? "Filme atualizado com sucesso!" : "Filme cadastrado com sucesso!");
+        window.location.href = "index.html";
+      } else {
+        alert("Erro ao salvar filme. Tente novamente.");
+      }
+    });
+
+    //previsualização da minha imagem:
+    const inputImagem = document.getElementById('imagem');
+    const previewImagem = document.getElementById('previewImagem');
+
+   // Preview imagem com tratamento de erro
+inputImagem.addEventListener('input', () => {
+  const url = inputImagem.value.trim();
+
+  if (url) {
+    previewImagem.classList.add('d-none'); // Esconde antes de mudar src
+    previewImagem.src = url;
+    previewImagem.classList.remove('d-none');
+  } else {
+    previewImagem.classList.add('d-none');
+    previewImagem.src = '';
+  }
+});
+
+previewImagem.onerror = () => {
+  previewImagem.classList.add('d-none');
+  previewImagem.src = '';
+};
+
+
+  </script>
+</body>
+
+</html>

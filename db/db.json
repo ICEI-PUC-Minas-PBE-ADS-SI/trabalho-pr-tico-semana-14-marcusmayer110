@@ -1,18 +1,124 @@
 {
-  "usuarios": [
+  "filmes": [
     {
-      "id": "187cb7e5-e097-4224-8bc7-b610c855e2b1",
-      "login": "admin",
-      "senha": "123",
-      "nome": "Administrador do Sistema",
-      "email": "admin@abc.com"
+      "titulo": "Solo Leveling",
+      "descricao": "Em Solo Leveling, Sung Jinwoo é um caçador de rank E, o mais fraco, que vive em um mundo onde portais levam a masmorras repletas de monstros. Para lutar contra esses perigos, a humanidade conta com caçadores, pessoas que despertaram habilidades especiais. ",
+      "imagemPrincipal": "images/destaque.jpg",
+      "genero": "animação",
+      "ano": 2018,
+      "diretor": "Shunsuke Nakashige",
+      "destaque": false,
+      "fotosExtras": [
+        {
+          "imagem": "images/fotoadicional1.1.jpg",
+          "legenda": "em breve"
+        },
+        {
+          "imagem": "images/fotoadicional1.jpg",
+          "legenda": "em breve"
+        }
+      ],
+      "id": "1"
     },
     {
-      "id": "ec37c83d-4b7f-458d-9e10-3fda7d37cd3e",
-      "login": "user",
-      "senha": "123",
-      "nome": "Usuario Comum",
-      "email": "user@abc.com"
+      "id": "2",
+      "titulo": "Bastardos inglorios",
+      "descricao": "A história acompanha dois planos para assassinar líderes nazistas, um de um grupo de soldados judeus americanos liderados por Aldo Raine (Brad Pitt) e outro de uma jovem judia francesa (Mélanie Laurent) que planeja vingança por ter escapado de um massacre",
+      "imagemPrincipal": "images/destaque2.jpg",
+      "diretor": "Quentin Tarantino",
+      "ano": 2009,
+      "genero": "Drama, Guerra, Humor ácido",
+      "destaque": true,
+      "fotosExtras": [
+        {
+          "imagem": "images/fotoadicional2.jpg",
+          "legenda": "Brad pitt e Eli Roth"
+        },
+        {
+          "imagem": "images/fotoadicional2.1.jpg",
+          "legenda": "Christoph Waltz, Oscar de Melhor Ator Coadjuvante."
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "titulo": "Carros",
+      "descricao": "O ambicioso carro de corrida Relâmpago McQueen, a caminho da final da Copa Pistão, se perde e chega a Radiator Springs, uma cidade esquecida da Rota 66.",
+      "imagemPrincipal": "images/destaque3.jpg",
+      "diretor": "John Lasseter",
+      "ano": 2006,
+      "genero": "comédia, aventura, esporte",
+      "destaque": true,
+      "fotosExtras": [
+        {
+          "imagem": "images/fotoadicional3.jpg",
+          "legenda": "relâmpago Mcqueen"
+        },
+        {
+          "imagem": "images/fotoadicional3.1.jpg",
+          "legenda": "Sally"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "titulo": "A rede social",
+      "descricao": "O filme A Rede Social é uma narrativa dramática e biográfica que retrata a criação do Facebook e seus conflitos legais.",
+      "imagemPrincipal": "images/destaque4-1.jpeg",
+      "diretor": "David Fincher",
+      "ano": 2010,
+      "genero": "Drama",
+      "destaque": true,
+      "fotosExtras": [
+        {
+          "imagem": "images/fotoadicional4.jpg",
+          "legenda": "fotos extras"
+        },
+        {
+          "imagem": "images/fotoadicional4.1.jpg",
+          "legenda": "fotos extras"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "titulo": "Vingadores",
+      "descricao": "Os Vingadores são uma equipe de indivíduos extraordinários que protegem o mundo de ameaças internas ou extraterrestres.",
+      "imagemPrincipal": "images/destaque5.jpg",
+      "diretor": "Anthony Russo",
+      "ano": 2012,
+      "genero": "ação, super-heroi, ficção",
+      "destaque": true,
+      "fotosExtras": [
+        {
+          "imagem": "images/fotoadicional5.jpg",
+          "legenda": "Homem de ferro"
+        },
+        {
+          "imagem": "images/fotoadicional5.2.jpg",
+          "legenda": "capitão américa"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "titulo": "Matrix",
+      "descricao": "Um hacker descobre a verdade sobre sua realidade.",
+      "imagemPrincipal": "images/destaque6.jpg",
+      "diretor": "Lana Wachowski, Lilly Wachowski",
+      "ano": 1999,
+      "genero": "Ficção Científica, Ação",
+      "destaque": false,
+      "fotosExtras": [
+        {
+          "imagem": "images/fotoadicional6.1.jpg",
+          "legenda": "Neo em ação"
+        },
+        {
+          "imagem": "images/fotoadicional6.0.jpg",
+          "legenda": "Matrix revelada"
+        }
+      ]
     }
   ]
 }
