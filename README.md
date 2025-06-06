@@ -16,7 +16,7 @@ Sugerimos o uso das seguintes ferramentas acessíveis: [FullCalendar](https://fu
 
 **Print da tela com a implementação**
 
-<< Coloque aqui uma breve explicação da implementação feita nessa etapa>>
+implementado grafico que exibe quantidade de filmes por genero. pagina do grafico acessado atraves de botão no header da pagina index
 
 ![alt text](print/print-1.png)
 
