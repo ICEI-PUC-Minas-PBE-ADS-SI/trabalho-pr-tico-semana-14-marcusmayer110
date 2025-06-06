@@ -11,7 +11,7 @@ Sugerimos o uso das seguintes ferramentas acessíveis: [FullCalendar](https://fu
 
 - Nome: Marcus Magnus de Almeida Mayer
 - Matricula: 888471
-- Proposta de projeto escolhida: catalogo de filmes
+- Proposta de projeto escolhida: catalogo de filmes.
 
 
 **Print da tela com a implementação**
