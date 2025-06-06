@@ -17,7 +17,7 @@ async function carregarHome() {
   const filmes = await buscarFilmes();
 
   if (destaque) {
-    destaque.innerHTML = ""; // limpa antes de preencher
+    destaque.innerHTML = "";
     let primeiro = true;
     filmes.filter(f => f.destaque).forEach(filme => {
       destaque.innerHTML += `
@@ -34,7 +34,7 @@ async function carregarHome() {
   }
 
   if (lista) {
-    lista.innerHTML = ""; // limpa antes de preencher
+    lista.innerHTML = "";
     filmes.forEach(filme => {
       lista.innerHTML += `
       <div class="col-md-4 mb-4" data-id="${filme.id}">
@@ -68,7 +68,6 @@ function adicionarEventosExcluir() {
           const resposta = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
           if (resposta.ok) {
             alert("Filme excluído com sucesso!");
-            // Recarrega a lista depois de excluir
             carregarHome();
           } else {
             alert("Erro ao excluir filme.");
@@ -84,7 +83,7 @@ function adicionarEventosExcluir() {
 
 async function carregarDetalhes() {
   const params = new URLSearchParams(window.location.search);
-  const id = parseInt(params.get("id"));
+  const id = params.get("id");
   if (!id) return;
 
   try {
@@ -111,25 +110,125 @@ async function carregarDetalhes() {
       </div>
     `;
 
-    fotos.innerHTML = ""; // limpa antes de preencher
-    filme.fotosExtras.forEach(foto => {
-      fotos.innerHTML += `
-        <div class="col-md-3 mb-3">
-          <div class="card shadow-sm">
-            <img src="${foto.imagem}" class="card-img-top">
-            <div class="card-body">
-              <p class="card-text">${foto.legenda}</p>
+    fotos.innerHTML = "";
+    if (Array.isArray(filme.fotosExtras)) {
+      filme.fotosExtras.forEach(foto => {
+        fotos.innerHTML += `
+          <div class="col-md-3 mb-3">
+            <div class="card shadow-sm">
+              <img src="${foto.imagem}" class="card-img-top">
+              <div class="card-body">
+                <p class="card-text">${foto.legenda}</p>
+              </div>
             </div>
           </div>
-        </div>
-      `;
-    });
-
+        `;
+      });
+    }
   } catch (erro) {
     console.error("Erro ao carregar detalhes do filme:", erro);
   }
 }
 
-// Chama a função adequada com base na página
+async function carregarFormulario() {
+  const form = document.getElementById("formFilme");
+  if (!form) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
+  if (id) {
+    try {
+      const resposta = await fetch(`${API_URL}/${id}`);
+      const filme = await resposta.json();
+
+      form.titulo.value = filme.titulo || "";
+      form.descricao.value = filme.descricao || "";
+      form.imagem.value = filme.imagemPrincipal || "";
+      form.genero.value = filme.genero || "";
+      form.ano.value = filme.ano || "";
+      form.diretor.value = filme.diretor || "";
+
+      if (Array.isArray(filme.fotosExtras)) {
+        filme.fotosExtras.forEach(foto => adicionarFotoExtra(foto.imagem, foto.legenda));
+      }
+    } catch (erro) {
+      console.error("Erro ao carregar filme para edição:", erro);
+    }
+  }
+
+  document.getElementById("btnSalvar").addEventListener("click", async function (e) {
+    e.preventDefault();
+
+    const fotosExtras = [];
+    document.querySelectorAll(".foto-extra").forEach(div => {
+      const url = div.querySelector(".input-url")?.value.trim();
+      const legenda = div.querySelector(".input-legenda")?.value.trim();
+      if (url) fotosExtras.push({ imagem: url, legenda });
+    });
+
+    const dadosFilme = {
+      titulo: form.titulo.value,
+      descricao: form.descricao.value,
+      imagemPrincipal: form.imagem.value,
+      genero: form.genero.value,
+      ano: Number(form.ano.value),
+      diretor: form.diretor.value,
+      destaque: false,
+      fotosExtras: fotosExtras
+    };
+
+    const url = id ? `${API_URL}/${id}` : API_URL;
+    const metodo = id ? "PUT" : "POST";
+
+    try {
+      const resposta = await fetch(url, {
+        method: metodo,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dadosFilme)
+      });
+
+      if (!resposta.ok) throw new Error();
+
+      alert(id ? "Filme atualizado com sucesso!" : "Filme cadastrado com sucesso!");
+      window.location.href = "index.html";
+
+    } catch (erro) {
+      console.error("Erro ao salvar filme:", erro);
+      alert("Erro ao salvar filme.");
+    }
+  });
+}
+
+function adicionarFotoExtra(url = "", legenda = "") {
+  const container = document.getElementById("fotosExtrasContainer");
+  if (!container) return;
+
+  const div = document.createElement("div");
+  div.classList.add("row", "mb-3", "foto-extra");
+
+  div.innerHTML = `
+    <div class="col-md-5 mb-2">
+      <input type="url" class="form-control input-url" placeholder="URL da imagem" value="${url}">
+    </div>
+    <div class="col-md-5 mb-2">
+      <input type="text" class="form-control input-legenda" placeholder="Legenda" value="${legenda}">
+    </div>
+    <div class="col-md-2 mb-2 d-flex align-items-center">
+      <button type="button" class="btn btn-danger btnRemoverFoto w-100">Remover</button>
+    </div>
+  `;
+
+  container.appendChild(div);
+
+  div.querySelector(".btnRemoverFoto").addEventListener("click", () => {
+    container.removeChild(div);
+  });
+}
+
+// Detectar qual página está sendo acessada
 if (document.getElementById("listaFilmes")) carregarHome();
 if (document.getElementById("infoFilme")) carregarDetalhes();
+if (document.getElementById("formFilme")) carregarFormulario();

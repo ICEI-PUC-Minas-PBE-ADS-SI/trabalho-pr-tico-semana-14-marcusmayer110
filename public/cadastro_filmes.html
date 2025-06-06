@@ -22,13 +22,23 @@
         <textarea class="form-control" id="descricao" name="descricao" rows="3" required></textarea>
       </div>
       <div class="mb-3">
-        <label for="imagem" class="form-label">URL da Imagem</label>
+        <label for="imagem" class="form-label">URL da Imagem Principal</label>
         <input type="text" class="form-control" id="imagem" name="imagem" required />
         <div class="mb-3 text-center">
           <img id="previewImagem" src="" alt="Prévia da Imagem" class="img-fluid rounded shadow-sm d-none"
             style="max-height: 200px;" />
         </div>
+      </div>
 
+      <div class="mb-3">
+        <label class="form-label">Fotos Extras</label>
+        <div id="fotosExtrasContainer" class="d-flex flex-column gap-4"></div>
+        <button type="button" class="btn btn-outline-secondary mt-2" onclick="adicionarFotoExtra()">+ Adicionar Foto Extra</button>
+      </div>
+
+      <div class="mb-3">
+        <label for="diretor" class="form-label">Diretor</label>
+        <input type="text" class="form-control" id="diretor" name="diretor" required />
       </div>
       <div class="mb-3">
         <label for="genero" class="form-label">Gênero</label>
@@ -49,7 +59,6 @@
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
 
-    // Se for edição, buscar os dados do filme e preencher o formulário
     if (id) {
       tituloPagina.innerText = "Editar Filme";
       botaoSubmit.innerText = "Salvar Alterações";
@@ -62,6 +71,11 @@
           form.imagem.value = filme.imagemPrincipal;
           form.genero.value = filme.genero;
           form.ano.value = filme.ano;
+          form.diretor.value = filme.diretor || "";
+
+          if (filme.fotosExtras && filme.fotosExtras.length > 0) {
+            filme.fotosExtras.forEach(f => adicionarFotoExtra(f.imagem, f.legenda));
+          }
         })
         .catch(() => alert("Erro ao carregar dados do filme para edição."));
     }
@@ -69,15 +83,22 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      const fotosExtras = [];
+      document.querySelectorAll('.foto-extra').forEach(div => {
+        const url = div.querySelector('.input-url').value.trim();
+        const legenda = div.querySelector('.input-legenda').value.trim();
+        if (url) fotosExtras.push({ imagem: url, legenda });
+      });
+
       const dadosFilme = {
         titulo: form.titulo.value,
         descricao: form.descricao.value,
         imagemPrincipal: form.imagem.value,
         genero: form.genero.value,
         ano: Number(form.ano.value),
-        diretor: "Desconhecido",
+        diretor: form.diretor.value,
         destaque: false,
-        fotosExtras: []
+        fotosExtras: fotosExtras
       };
 
       const url = id
@@ -88,9 +109,7 @@
 
       const resposta = await fetch(url, {
         method: metodo,
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dadosFilme)
       });
 
@@ -102,30 +121,74 @@
       }
     });
 
-    //previsualização da minha imagem:
     const inputImagem = document.getElementById('imagem');
     const previewImagem = document.getElementById('previewImagem');
 
-   // Preview imagem com tratamento de erro
-inputImagem.addEventListener('input', () => {
-  const url = inputImagem.value.trim();
+    inputImagem.addEventListener('input', () => {
+      const url = inputImagem.value.trim();
+      if (url) {
+        previewImagem.src = url;
+        previewImagem.classList.remove('d-none');
+      } else {
+        previewImagem.classList.add('d-none');
+        previewImagem.src = '';
+      }
+    });
 
-  if (url) {
-    previewImagem.classList.add('d-none'); // Esconde antes de mudar src
-    previewImagem.src = url;
-    previewImagem.classList.remove('d-none');
-  } else {
-    previewImagem.classList.add('d-none');
-    previewImagem.src = '';
-  }
-});
+    previewImagem.onerror = () => {
+      previewImagem.classList.add('d-none');
+      previewImagem.src = '';
+    };
 
-previewImagem.onerror = () => {
-  previewImagem.classList.add('d-none');
-  previewImagem.src = '';
-};
+    function adicionarFotoExtra(imagem = '', legenda = '') {
+      const container = document.createElement('div');
+      container.className = 'foto-extra';
 
+      container.innerHTML = `
+        <div class="row g-2">
+          <div class="col-md-6">
+            <input type="text" placeholder="URL da imagem" class="form-control input-url" value="${imagem}" />
+          </div>
+          <div class="col-md-6">
+            <input type="text" placeholder="Legenda" class="form-control input-legenda" value="${legenda}" />
+          </div>
+        </div>
+        <div class="row mt-2 align-items-center">
+          <div class="col-md-10">
+            <img src="${imagem}" class="img-fluid rounded shadow-sm preview-mini d-none" style="max-height: 150px;" />
+          </div>
+          <div class="col-md-2 text-end">
+            <button type="button" class="btn btn-danger" onclick="this.closest('.foto-extra').remove()">❌</button>
+          </div>
+        </div>
+      `;
 
+      const urlInput = container.querySelector('.input-url');
+      const imgPreview = container.querySelector('.preview-mini');
+
+      urlInput.addEventListener('input', () => {
+        const url = urlInput.value.trim();
+        if (url) {
+          imgPreview.src = url;
+          imgPreview.classList.remove('d-none');
+        } else {
+          imgPreview.classList.add('d-none');
+          imgPreview.src = '';
+        }
+      });
+
+      imgPreview.onerror = () => {
+        imgPreview.classList.add('d-none');
+        imgPreview.src = '';
+      };
+
+      document.getElementById('fotosExtrasContainer').appendChild(container);
+
+      if (imagem) {
+        imgPreview.src = imagem;
+        imgPreview.classList.remove('d-none');
+      }
+    }
   </script>
 </body>
 

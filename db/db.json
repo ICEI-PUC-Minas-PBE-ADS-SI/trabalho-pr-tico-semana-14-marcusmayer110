@@ -10,18 +10,18 @@
       "destaque": false,
       "fotosExtras": [
         {
-          "imagem": "images/fotoadicional1.1.jpg",
+          "imagem": "images\\fotoadicional1.1.jpg",
           "legenda": "em breve"
         },
         {
-          "imagem": "images/fotoadicional1.jpg",
+          "imagem": "images\\fotoadicional1.jpg",
           "legenda": "em breve"
         }
       ],
-      "id": "1"
+      "id": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "titulo": "Bastardos inglorios",
       "descricao": "A história acompanha dois planos para assassinar líderes nazistas, um de um grupo de soldados judeus americanos liderados por Aldo Raine (Brad Pitt) e outro de uma jovem judia francesa (Mélanie Laurent) que planeja vingança por ter escapado de um massacre",
       "imagemPrincipal": "images/destaque2.jpg",
@@ -41,7 +41,7 @@
       ]
     },
     {
-      "id": "3",
+      "id": 3,
       "titulo": "Carros",
       "descricao": "O ambicioso carro de corrida Relâmpago McQueen, a caminho da final da Copa Pistão, se perde e chega a Radiator Springs, uma cidade esquecida da Rota 66.",
       "imagemPrincipal": "images/destaque3.jpg",
@@ -61,14 +61,13 @@
       ]
     },
     {
-      "id": "4",
       "titulo": "A rede social",
       "descricao": "O filme A Rede Social é uma narrativa dramática e biográfica que retrata a criação do Facebook e seus conflitos legais.",
       "imagemPrincipal": "images/destaque4-1.jpeg",
-      "diretor": "David Fincher",
-      "ano": 2010,
       "genero": "Drama",
-      "destaque": true,
+      "ano": 2010,
+      "diretor": "David Fincher",
+      "destaque": false,
       "fotosExtras": [
         {
           "imagem": "images/fotoadicional4.jpg",
@@ -78,10 +77,11 @@
           "imagem": "images/fotoadicional4.1.jpg",
           "legenda": "fotos extras"
         }
-      ]
+      ],
+      "id": 4
     },
     {
-      "id": "5",
+      "id": 5,
       "titulo": "Vingadores",
       "descricao": "Os Vingadores são uma equipe de indivíduos extraordinários que protegem o mundo de ameaças internas ou extraterrestres.",
       "imagemPrincipal": "images/destaque5.jpg",
@@ -101,24 +101,15 @@
       ]
     },
     {
-      "id": "6",
       "titulo": "Matrix",
       "descricao": "Um hacker descobre a verdade sobre sua realidade.",
-      "imagemPrincipal": "images/destaque6.jpg",
-      "diretor": "Lana Wachowski, Lilly Wachowski",
+      "imagemPrincipal": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2023/03/230306130026-keanu-reeves-the-matrix-restricted.jpg?w=1200&h=900&crop=1",
+      "genero": "Ficção Científica",
       "ano": 1999,
-      "genero": "Ficção Científica, Ação",
+      "diretor": "Desconhecido",
       "destaque": false,
-      "fotosExtras": [
-        {
-          "imagem": "images/fotoadicional6.1.jpg",
-          "legenda": "Neo em ação"
-        },
-        {
-          "imagem": "images/fotoadicional6.0.jpg",
-          "legenda": "Matrix revelada"
-        }
-      ]
+      "fotosExtras": [],
+      "id": 6
     }
   ]
 }

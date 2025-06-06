@@ -9,10 +9,10 @@ Sugerimos o uso das seguintes ferramentas acessíveis: [FullCalendar](https://fu
 
 ## Informações do trabalho
 
-- Nome:
-- Matricula:
-- Proposta de projeto escolhida:
-- Breve descrição sobre seu projeto:
+- Nome: Marcus Magnus de Almeida Mayer
+- Matricula: 888471
+- Proposta de projeto escolhida: catalogo de filmes
+
 
 **Print da tela com a implementação**
 
