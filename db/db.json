@@ -21,13 +21,12 @@
       "id": 1
     },
     {
-      "id": 2,
       "titulo": "Bastardos inglorios",
       "descricao": "A história acompanha dois planos para assassinar líderes nazistas, um de um grupo de soldados judeus americanos liderados por Aldo Raine (Brad Pitt) e outro de uma jovem judia francesa (Mélanie Laurent) que planeja vingança por ter escapado de um massacre",
       "imagemPrincipal": "images/destaque2.jpg",
-      "diretor": "Quentin Tarantino",
+      "genero": "animação",
       "ano": 2009,
-      "genero": "Drama, Guerra, Humor ácido",
+      "diretor": "Quentin Tarantino",
       "destaque": true,
       "fotosExtras": [
         {
@@ -38,7 +37,8 @@
           "imagem": "images/fotoadicional2.1.jpg",
           "legenda": "Christoph Waltz, Oscar de Melhor Ator Coadjuvante."
         }
-      ]
+      ],
+      "id": 2
     },
     {
       "id": 3,
@@ -67,7 +67,7 @@
       "genero": "Drama",
       "ano": 2010,
       "diretor": "David Fincher",
-      "destaque": false,
+      "destaque": true,
       "fotosExtras": [
         {
           "imagem": "images/fotoadicional4.jpg",
@@ -106,7 +106,7 @@
       "imagemPrincipal": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2023/03/230306130026-keanu-reeves-the-matrix-restricted.jpg?w=1200&h=900&crop=1",
       "genero": "Ficção Científica",
       "ano": 1999,
-      "diretor": "Desconhecido",
+      "diretor": "David Fincher",
       "destaque": false,
       "fotosExtras": [],
       "id": 6
